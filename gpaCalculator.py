@@ -1,11 +1,16 @@
 from time import sleep
 
 def calculateGPA(gradeList: list):
+    """
+    Returns GPA value from grade list by taking the sum of the grades given, and
+    dividing it by the number of grades in the list.
+    """
     sumOfGrades = sum(gradeList)
     gradeCount = len(gradeList)
     return sumOfGrades / gradeCount
 print("Welcome to the GPA calculator! Make sure to input your grades in the 4.0 scale!")
 
+# Grade amount/how many classes a person has
 while True:
     try:
         gradeAmount = int(input("How many grades do you have?\n> "))
@@ -15,7 +20,7 @@ while True:
 
 
 while gradeAmount <= 0:
-    print("Please enter a non-negative value")
+    print("Please enter a non-negative, non-zero value")
     while True:
         try:
             gradeAmount = int(input("> "))
@@ -24,6 +29,7 @@ while gradeAmount <= 0:
             print("Please enter a proper value for how many grades you have") 
         
 
+# Gathers grades from each class, ensuring correct data format
 grades = []
 for gradeCount in range(1, gradeAmount+1): # +1 allows for input statements to be formatted more clearly
     while True:
@@ -43,6 +49,7 @@ for gradeCount in range(1, gradeAmount+1): # +1 allows for input statements to b
     
     grades.append(grade)
 
+# Calculates overall, first semester, and second semester GPAs
 gpa = calculateGPA(grades)
 print("Calculating...")
 sleep(2)
@@ -75,6 +82,8 @@ else: # Got the same grade they did last semester
 sleep(3)
 
 if not consistent4:
+
+    # Asks if they would like to maintain or improve their GPA, and then validates this answer
     maintainOrImprove = input("Would you like to maintain or improve your GPA?\n> ")
     while maintainOrImprove.lower() not in ["maintain", "improve"]:
         print('Please type either "maintain" or "improve"')
@@ -87,6 +96,8 @@ if not consistent4:
             print(f"Sounds good, good work on your GPA!")
 
     elif maintainOrImprove.lower() == "improve":
+
+        # Prompts the user for a target GPA and ensures it is a valid input
         while True:
             try:
                 targetGPA = float(input("Good choice! What is your target GPA? \n> "))
@@ -102,16 +113,19 @@ if not consistent4:
             except:
                 print("Please enter a number with valid characters")
 
+        # Creates the person's new grades with the updated 4.0
         newGrades = grades.copy()
         lowestGradeIndex = newGrades.index(min(newGrades))
         newGrades[lowestGradeIndex] = 4.0 # Selects the lowest grade in the grades, and makes it a 4.0
         print(f"If you were to improve your grade in Class {lowestGradeIndex + 1}, your grades would look like this:")
         sleep(2)
         
+        # Displays their new class grades with the updated grade
         for classNumber, grade in enumerate(newGrades, 1):
             print(f"    Class {classNumber}: {grade}")
             sleep(.5)
 
+        # Calculates their new GPA, and tells them if they can improve it or not.
         newGPA = calculateGPA(newGrades)
         print(f"New GPA: {round(newGPA, 2)}")
         if newGPA >= targetGPA:
