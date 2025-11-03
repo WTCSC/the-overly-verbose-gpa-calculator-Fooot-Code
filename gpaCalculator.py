@@ -27,7 +27,7 @@ while True: # uses while true to make sure the person types a valid input
         print("Please enter a proper value for how many grades you have") 
 
 
-while gradeAmount <= 0:
+while gradeAmount <= 0: # doesn't have an upper limit, because you never know how many classes people can have
     print("Please enter a non-negative, non-zero value")
     while True:
         try:
