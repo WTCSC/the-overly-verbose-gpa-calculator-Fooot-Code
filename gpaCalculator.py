@@ -1,17 +1,25 @@
 from time import sleep
 
-def calculateGPA(gradeList: list):
+def calculateGPA(gradeList: list) -> float:
     """
-    Returns GPA value from grade list by taking the sum of the grades given, and
-    dividing it by the number of grades in the list.
+    Calculates GPA using the average of your grades. Does this manually to not
+    require that many imports for the user.
+
+    Args:
+        gradeList: list of grades, must be between 0.0-4.0
+    Returns:
+        The GPA, calculated by taking the sum of grades and dividing it by the
+        number of grades
     """
+
     sumOfGrades = sum(gradeList)
     gradeCount = len(gradeList)
     return sumOfGrades / gradeCount
+
 print("Welcome to the GPA calculator! Make sure to input your grades in the 4.0 scale!")
 
 # Grade amount/how many classes a person has
-while True:
+while True: # uses while true to make sure the person types a valid input
     try:
         gradeAmount = int(input("How many grades do you have?\n> "))
         break
@@ -57,7 +65,7 @@ print(f"Your current GPA is {round(gpa, 2)}!")
 sleep(3)
 gradeAmount = len(grades)
 
-# If odd, first semester gets the extra class
+# If odd, first semester gets the extra class, if even, splits classes in two
 mid = (gradeAmount + 1) // 2  
 
 firstSemesterGPA = calculateGPA(grades[:mid])
@@ -66,7 +74,7 @@ lastSemesterGPA = calculateGPA(grades[mid:])
 consistent4 = True if firstSemesterGPA == 4 and lastSemesterGPA == 4 else False # Has a 4.0 through both semesters.
 
 
-print(f"Your GPA for your first semester is {round(firstSemesterGPA, 2)}!")
+print(f"Your GPA for your first semester is {round(firstSemesterGPA, 2)}!") # Rounds to 2 decimals to make output look better
 sleep(3)
 print(f"Your GPA for your last semester is {round(lastSemesterGPA, 2)}!")
 sleep(3)
@@ -81,7 +89,7 @@ else: # Got the same grade they did last semester
 
 sleep(3)
 
-if not consistent4:
+if not consistent4: # User should be proud, and maintain grades if they have 2 4.0s
 
     # Asks if they would like to maintain or improve their GPA, and then validates this answer
     maintainOrImprove = input("Would you like to maintain or improve your GPA?\n> ")
@@ -90,8 +98,8 @@ if not consistent4:
         maintainOrImprove = input("> ")
 
     if maintainOrImprove.lower() == "maintain":
-        if gpa < 2:
-            print(f"Okay, but I would consider improving your GPA, a {round(gpa, 1)} is not very good.") # Rounds to 1 decimal for emphasis
+        if gpa < 2: # arbitrary "bad" gpa value
+            print(f"Okay, but I wodul consider improving your GPA, a {round(gpa, 1)} is not very good.") # Rounds to 1 decimal for emphasis
         else:
             print(f"Sounds good, good work on your GPA!")
 
@@ -114,7 +122,7 @@ if not consistent4:
                 print("Please enter a number with valid characters")
 
         # Creates the person's new grades with the updated 4.0
-        newGrades = grades.copy()
+        newGrades = grades.copy() # creates a new list to maintain old grades for future use 
         lowestGradeIndex = newGrades.index(min(newGrades))
         newGrades[lowestGradeIndex] = 4.0 # Selects the lowest grade in the grades, and makes it a 4.0
         print(f"If you were to improve your grade in Class {lowestGradeIndex + 1}, your grades would look like this:")
