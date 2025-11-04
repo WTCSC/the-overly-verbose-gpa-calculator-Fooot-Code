@@ -1,3 +1,6 @@
+### GPA CALCULATOR ###
+# Will calculate a person's GPA, and then tell them how to improve said GPA #
+
 from time import sleep
 
 def calculateGPA(gradeList: list) -> float:
